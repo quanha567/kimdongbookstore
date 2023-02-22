@@ -1,0 +1,129 @@
+﻿@using KimDongBookStore.Models;
+@model List<GioHang> 
+
+<style>
+    td {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .up, .down, .number {
+        padding: 10px 15px;
+        border: none;
+        outline: none;
+    }
+
+    .number {
+        border: 1px solid;
+    }
+
+    .button {
+        background-color: #d51c24;
+        padding: 5px 10px;
+        border: none;
+        outline: none;
+        color: #fff;
+        display: inline-block;
+    }
+</style>
+
+<div style="position: relative;" class="mt-3">
+    <div style="background-image: url('/Content/img/banner/breadcrumb_bg2.png'); height: 300px; background-repeat: no-repeat; background-size: cover; color: #fff;" class="d-flex align-items-center">
+        <div class="container">
+            <h3>GIỎ HÀNG CỦA BẠN - NHÀ XUẤT BẢN KIM ĐỒNG</h3>
+            <p class="d-flex align-items-center">
+                <a href="/" class="me-2 text-decoration-none home" style="color: #fff;">
+                    Trang chủ /
+                </a>
+                <span>Giỏ hàng của bạn - Nhà xuất bản Kim Đồng</span>
+            </p>
+        </div>
+    </div>
+    <div class="menu d-flex justify-content-start container " style="position: absolute; top: 0; left: 0; right: 0; z-index: 999; background-color: rgba(255, 255, 255, 0.4);">
+        <div class="dropdown">
+            <button class="btn d-flex ps-5 pe-5 justify-content-center align-items-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0; font-size: 12px; font-weight: bold; color: #fff; background-color: #d51c24;">
+                <ion-icon name="menu-outline" class="me-1"></ion-icon>
+                DANH MỤC SẢN PHẨM
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="border-radius: 0; font-size: 14px; width: 100%;">
+                <li><a class="dropdown-item" style="font-weight: bold; color: #d51c24;" href="#">Tất cả sản phẩm</a></li>
+                @Html.Action("DanhMuc", "Home")
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle ps-5 pe-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0; font-size: 12px; font-weight: bold; color: #333;">
+                TIN TỨC
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="border-radius: 0; font-size: 14px; width: 150%;">
+                <li><a class="dropdown-item" href="#">Hoạt động</a></li>
+                <li><a class="dropdown-item" href="#">Sự kiện</a></li>
+                <li><a class="dropdown-item" href="#">Điểm sách</a></li>
+                <li><a class="dropdown-item" href="#">Lịch phát hành sách định kỳ</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle ps-5 pe-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0; font-size: 12px; font-weight: bold; color: #333;">
+                GIỚI THIỆU
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="border-radius: 0; font-size: 14px; width: 150%;">
+                <li><a class="dropdown-item" href="#">Giới thiệu nhà xuất bản</a></li>
+                <li><a class="dropdown-item" href="#">Tác giả - Tác phẩm</a></li>
+                <li><a class="dropdown-item" href="#">Công tác xã hội</a></li>
+                <li><a class="dropdown-item" href="#">Khen thưởng nhà nước</a></li>
+                <li><a class="dropdown-item" href="#">Hợp tác quốc tế</a></li>
+                <li><a class="dropdown-item" href="#">Hệ thống nhà sách</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h5 class="mt-5 mb-3 pb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.2);">GIỎ HÀNG</h5>
+    <table>
+        <thead style="border: solid rgba(0, 0, 0, 0.2); border-width: 1px 0 1px 0">
+            <tr>
+                <td style="width: 10%;"></td>
+                <td style="width: 45%;">Sản phẩm</td>
+                <td style="width: 15%;">Đơn giá</td>
+                <td style="width: 15%;">Số lượng</td>
+                <td style="width: 15%;">Tổng giá</td>
+            </tr>
+        </thead>
+        <tbody style="border-top: ">
+            @foreach(var item in Model)
+            {
+            <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.2);">
+                @using (Html.BeginForm("CapNhatGioHang", "Giohang", new {@iMaSach = item.iMaSach}, FormMethod.Post))
+                {
+                    <td><img class="d-block w-100" src="~/Content/img/product/@item.sAnhBia" /></td>
+                    <td style="text-align: left;">
+                        <h6 class="text-danger">@item.sTenSach</h6>
+                        <p style="font-size: 14px;">Khuyến mãi: 1017960497 - Giảm vô thời hạn 10% cho toàn bộ Sách Kim Đồng</p>
+                        <a style="color: #fff;" class="text-decoration-none button" href="@Url.Action("XoaGioHang", "GioHang", new { @iMaSach = item.iMaSach})">Xóa</a>
+                        <button type="submit" class="text-decoration-none ms-1 button">Cập nhật</button>
+                    </td>
+                    <td style="font-weight: bold; font-size: 18px;">@String.Format("{0:0,0}đ", item.dDonGia)</td>
+                    <td class="d-flex align-items-center justify-content-center" style="margin-top: 50px;">
+                        <button type="reset" class="up">-</button>
+                        <input type="number" min="1" name="soluong" value="@item.iSoLuong" class="number" />
+                        <button type="reset" class="down">+</button>
+                    </td>
+                    <td style="font-weight: bold; font-size: 18px;">@String.Format("{0:0,0}đ", item.dThanhTien)</td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row mt-3">
+        <div class="col-9 d-flex flex-column">
+            <label>Ghi chú</label>
+            <textarea style="width: 800px; height: 100px;"></textarea>
+        </div>
+        <div class="col-3">
+            <p style="font-size: 20px; text-align: right">Tạm tính: <span style="font-weight: bold;">@String.Format("{0:0,0}đ", ViewBag.ThanhTien)</span></p>
+            <div style="text-align: right;">
+                <a style="color: #fff" class="button text-decoration-none" href="/GioHang/XoaTatCaGioHang">Xóa tất cả giỏ hàng</a>
+                <a style="color: #fff" class="button text-decoration-none" href="/GioHang/DatHang">Thanh Toán</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model KimDongBookStore.Models.SACH
+
+@{
+    ViewBag.Title = "XoaSach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="text-danger text-center m-3">XÁC NHẬN XÓA SÁCH</h2>
+
+<p>Bạn có muốn xóa quyển sách: <span class="text-danger">@Model.TENSACH</span> này chứ ?</p>
+<div class="row">
+    <div class="col-3">
+        <img class="d-block w-100" src="~/Content/img/product/@Model.ANHBIA" />
+    </div>
+    <div class="col-9">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            {
+                <button class="btn btn-danger btn-lg">Xóa</button>
+            }
+        }
+    </div>
+</div>

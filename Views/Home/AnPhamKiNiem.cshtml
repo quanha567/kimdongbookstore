@@ -1,0 +1,34 @@
+﻿@model IEnumerable<KimDongBookStore.Models.SACH>
+
+@helper Truncate(string str, int len)
+{ 
+    if(str.Length <= len)
+    {
+        @str
+    }
+    else
+    {
+        @str.Substring(0, len)<span>...</span>
+    }
+}
+
+@foreach (var item in Model)
+{
+    decimal giaban = item.GIABAN - (item.GIABAN * decimal.Parse(item.SALE.ToString()) / 100);
+    <div class="col-md-2 product p-2">
+        <a href="@Url.Action("ChiTietSanPham", "Home", new { id = item.MASACH})" class="d-flex flex-column text-decoration-none">
+            <div style="position: relative;">
+                <img src="~/Content/img/product/@item.ANHBIA" class="d-block w-100" style="height: 325px; object-fit: cover;"/>
+                @if (item.SALE != null)
+                {
+                    <div style="position: absolute; top: 0px; right: 0px; z-index: 1; background: #d51c24; height: 40px; width: 40px; line-height: 40px; border-radius: 50%; color: #fff;">-@item.SALE%</div>
+                }
+            </div>
+            <h6 class="text-center text-dark mt-2">@Truncate(item.TENSACH, 35)</h6>
+            <p class="text-center text-danger" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between; align-items:center">
+                <span>@String.Format("{0:0,0}đ", giaban)</span>
+                <span style="text-decoration: line-through; color: #bebebe;">@String.Format("{0:0,0}đ", item.GIABAN)</span>
+            </p>
+        </a>
+    </div>
+}

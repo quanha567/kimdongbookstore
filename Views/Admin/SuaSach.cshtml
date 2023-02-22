@@ -1,0 +1,107 @@
+﻿@model KimDongBookStore.Models.SACH
+
+@{
+    ViewBag.Title = "SuaSach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    select {
+        display: block;
+        width: 100%;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    input {
+        display: block;
+        width: 100%;
+    }
+
+</style>
+
+<h2 class="text-center text-danger m-3">SỬA THÔNG TIN SÁCH</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    {
+<table>
+    <tr>
+        <th>Tên sách</th>
+        <td><input value="@Model.TENSACH" name="tensach"/></td>
+    </tr>
+    <tr>
+        <th>Giá bán</th>
+        <td><input value="@Model.GIABAN" name="giaban"/></td>
+    </tr>
+    <tr>
+        <th>Ảnh bìa</th>
+        <td>
+            <input name="anhbia" type="file" />
+            <img src="~/Content/img/product/@Model.ANHBIA" class="d-block" style="width: 10%;" value="@Model.ANHBIA"/>
+            @ViewBag.ThongBao
+        </td>
+    </tr>
+    <tr>
+        <th>Mô tả</th>
+        <td><textarea name="mota">@Model.MOTA</textarea></td>
+    </tr>
+    <tr>
+        <th>Ngày cập nhật</th>
+        <td>@DateTime.Now</td>
+    </tr>
+    <tr>
+        <th>Số lượng tồn</th>
+        <td><input value="@Model.SOLUONGTON" name="soluongton"/></td>
+    </tr>
+    <tr>
+        <th>Mã chủ đề</th>
+        <td>@Html.DropDownList("MaCD", null, new { name = "macd"})</td>
+    </tr>
+    <tr>
+        <th>Mã danh mục</th>
+        <td>@Html.DropDownList("MaDM", null ,new {name="madm" })</td>
+    </tr>
+    <tr>
+        <th>Tác giả</th>
+        <td><input value="@Model.TACGIA" name="tacgia"/></td>
+    </tr>
+    <tr>
+        <th>Giảm giá</th>
+        <td><input value="@Model.SALE" name="sale"/></td>
+    </tr>
+    <tr>
+        <th>ISBN</th>
+        <td><input value="@Model.ISBN" name="isbn"/></td>
+    </tr>
+    <tr>
+        <th>Đối tượng</th>
+        <td><input value="@Model.DOITUONG" name="doituong"/></td>
+    </tr>
+    <tr>
+        <th>Khuôn khổ</th>
+        <td><input value="@Model.KHUONKHO" name="khuonkho"/></td>
+    </tr>
+    <tr>
+        <th>Số trang</th>
+        <td><input value="@Model.SOTRANG" name="sotrang" /></td>
+    </tr>
+    <tr>
+        <th>Định dạng</th>
+        <td><input value="@Model.DINHDANG" name="dinhdang" /></td>
+    </tr>
+    <tr>
+        <th>Trọng lượng</th>
+        <td><input value="@Model.TRONGLUONG" name="trongluong" /></td>
+    </tr>
+    <tr>
+        <th>Bộ sách</th>
+        <td><input value="@Model.BOSACH" name="bosach"/></td>
+    </tr>
+</table>
+<button type="submit" class="btn btn-danger m-3 ms-0">Lưu lại</button>
+    }                            
+}
+
+<div class="m-3 ms-0">
+    <a href="/Admin/QuanLiSach" class="btn btn-info">Trở về</a>
+</div>

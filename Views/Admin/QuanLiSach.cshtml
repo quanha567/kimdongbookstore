@@ -1,0 +1,95 @@
+﻿@using PagedList.Mvc;
+@using KimDongBookStore.Models;
+@model PagedList.PagedList<KimDongBookStore.Models.SACH>
+
+@{
+    ViewBag.Title = "QuanLiSach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .pagination a {
+        text-decoration: none;
+        margin: 0;
+    }
+    .pagination li {
+        padding: 5px 12px;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-radius: 3px;
+        margin-right: 5px;
+    }
+    .pagination li.active {
+        background-color: red;
+        color: #fff;
+    }
+</style>
+
+@helper Truncate(string str, int len)
+{
+    if (str.Length <= len)
+    {
+        @str
+    }
+    else
+    {
+        @str.Substring(0, len)<span>...</span>
+    }
+}
+
+<h2 class="text-center text-danger m-3">QUẢN LÍ SÁCH</h2>
+
+<p>
+    <a class="btn btn-danger">Thêm sách mới</a>
+</p>
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th style="width: 40%;">
+            </th>
+            <th style="width: 10%;">
+               
+            </th>
+            <th style="width: 40%;">
+            </th>
+            <th style="width: 10%;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="height: 377px;">
+                <td>
+                    <h6>@Truncate(item.TENSACH, 100)</h6>
+                    <p>Giá bán: <b style="color: red;">@String.Format("{0:0,0}đ", item.GIABAN)</b></p>
+                    <p>Tác giả:  <i><b>@item.TACGIA</b></i></p>
+                    <p>Đối tượng:  <i><b>@item.DOITUONG</b></i></p>
+                    <p>Bộ sách: <i><b>@item.BOSACH</b></i></p>
+                    <p>ISBN: <i><b>@item.ISBN</b></i></p>
+                    <p>Mô tả: <i>@Truncate(item.MOTA, 200)</i></p>
+                </td>
+                <td>
+                    <img src="~/Content/img/product/@item.ANHBIA" class="d-block w-100" style="object-fit: cover;"/>
+                </td>
+                <td>
+                    <p>Ngày cập nhật: <i><b>@item.NGAYCAPNHAT</b></i></p>
+                    <p>Số lượng tồn:  <i><b>@item.SOLUONGTON</b></i></p>
+                    <p>Mã chủ đề: <i><b>@item.MACD</b></i></p>
+                    <p>Mã danh mục:  <i><b>@item.MADM</b></i></p>
+                    <p>Giảm giá: <i><b>@item.SALE</b></i></p>
+                    <p>Khuôn khổ: <i><b>@item.KHUONKHO</b></i></p>
+                    <p>Số trang:  <i><b>@item.SOTRANG</b></i></p>
+                    <p>Định dạng:  <i><b>@item.DINHDANG</b></i></p>
+                    <p>Trong lượng: <i><b>@item.TRONGLUONG</b></i></p>
+                </td>
+                <td class="d-flex flex-column" style="height: 378px;">
+                    <a class="btn btn-danger m-2" href="/Admin/SuaSach/@item.MASACH">Sửa</a>
+                    <a class="btn btn-danger m-2" href="/Admin/ChiTietSach/@item.MASACH">Chi tiết</a>
+                    <a class="btn btn-danger m-2" href="/Admin/XoaSach/@item.MASACH">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, page => Url.Action("QuanLiSach", new { page = page }))
+</div>

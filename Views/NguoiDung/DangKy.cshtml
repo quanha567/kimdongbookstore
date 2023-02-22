@@ -1,0 +1,79 @@
+﻿<style>
+    form input, form select {
+        padding: 8px 20px;
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    .btn-login {
+        font-size: 12px;
+        padding: 8px 10px;
+        margin: 5px 12px;
+        width: 50%;
+    }
+
+    form .btn-login {
+        border-radius: 0 !important;
+        width: 100%;
+    }
+
+    .form-login {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Xin chào</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-8">
+                        <p>
+                            <span style="color: #d51c24; cursor: pointer;" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Đăng nhập</span>
+                            hoặc
+                            <span style="color: #d51c24;">Tạo tài khoản</span>
+                        </p>
+                        @using (Html.BeginForm("DangKy", "NguoiDung", FormMethod.Post, new { @class = "form-login" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            {
+                                <input type="text" placeholder="Họ tên" name="hoten" required/>
+                                <input type="text" placeholder="Tài khoản" name="taikhoan" required/>
+                                <input type="tel" placeholder="Số điện thoại" name="dienthoai"/>
+                                <input type="text" placeholder="diachi" name="diachi" />
+                                <input type="email" placeholder="customer.register.email" name="email"/>
+                                <input type="password" placeholder="customer.register.password" name="matkhau" required/>
+                                <select name="gioitinh">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                </select>
+                                <label>Ngày sinh</label>
+                                <input type="date" name="ngaysinh"/>
+                                <div class="d-flex mb-3">
+                                    <input type="checkbox" style="width: fit-content; margin: 10px;" checked/>
+                                    <span>Nhận thông tin và chương trình khuyến mãi của NXB Kim Đồng qua Email</span>
+                                </div>
+                                <button class="btn btn-danger btn-login m-0" type="submit">Đăng Ký</button>
+                            }
+                        }
+                    </div>
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="/Content/img/logo.png" class="d-block w-25" style="object-fit: contain;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="col-md-3 d-flex justify-content-center align-items-center text-decoration-none text-dark" data-bs-toggle="modal" href="#exampleModalToggle2" role="button">
+    <ion-icon name="person-add-outline" class="me-1"></ion-icon>
+    <span class="text-icon">
+        Đăng ký
+    </span>
+</a>

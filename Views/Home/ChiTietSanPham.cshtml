@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    decimal giaban = Model.GIABAN - (Model.GIABAN * decimal.Parse(Model.SALE.ToString()) / 100);
+    decimal tietkiem = Model.GIABAN - giaban;
+}
+
+<style>
+    .btn:enabled {
+        box-shadow: none;
+    }
+    .item {
+        margin: 8px 0;
+    }
+    a:hover, .item strong {
+        color: #d51c24 !important;
+    }
+    button, input {
+        border: 1px solid rgba(0,0,0,0.1);
+        outline: none;
+        padding: 5px 10px;
+        margin: 0;
+    }
+
+    .box {
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .box h5 {
+        color: white;
+        font-size: 16px;
+        margin-bottom: 0;
+        padding: 5px 20px;   
+    }
+    .box h5:nth-child(1) {
+        background-color: rgba(213, 28, 36, 1);
+    }
+    .box h5:nth-child(2) {
+        background-color: rgba(213, 28, 36, 0.7);
+    }
+</style>
+<div class="container-fluid mt-3" style="border-top: 1px solid rgba(0, 0, 0, 0.3);">
+    <div class="menu d-flex justify-content-start container " style="background-color: rgba(255, 255, 255, 0.4);">
+        <div class="dropdown">
+            <button class="btn d-flex ps-5 pe-5 justify-content-center align-items-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0; font-size: 12px; font-weight: bold; color: #fff; background-color: #d51c24;">
+                <ion-icon name="menu-outline" class="me-1"></ion-icon>
+                DANH MỤC SẢN PHẨM
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="border-radius: 0; font-size: 14px; width: 100%;">
+                <li><a class="dropdown-item" style="font-weight: bold; color: #d51c24;" href="#">Tất cả sản phẩm</a></li>
+                @Html.Action("DanhMuc")
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle ps-5 pe-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0; font-size: 12px; font-weight: bold; color: #333;">
+                TIN TỨC
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="border-radius: 0; font-size: 14px; width: 150%;">
+                <li><a class="dropdown-item" href="#">Hoạt động</a></li>
+                <li><a class="dropdown-item" href="#">Sự kiện</a></li>
+                <li><a class="dropdown-item" href="#">Điểm sách</a></li>
+                <li><a class="dropdown-item" href="#">Lịch phát hành sách định kỳ</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle ps-5 pe-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0; font-size: 12px; font-weight: bold; color: #333;">
+                GIỚI THIỆU
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="border-radius: 0; font-size: 14px; width: 150%;">
+                <li><a class="dropdown-item" href="#">Giới thiệu nhà xuất bản</a></li>
+                <li><a class="dropdown-item" href="#">Tác giả - Tác phẩm</a></li>
+                <li><a class="dropdown-item" href="#">Công tác xã hội</a></li>
+                <li><a class="dropdown-item" href="#">Khen thưởng nhà nước</a></li>
+                <li><a class="dropdown-item" href="#">Hợp tác quốc tế</a></li>
+                <li><a class="dropdown-item" href="#">Hệ thống nhà sách</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="mt-4 d-flex align-items-center">
+            <a href="/" class="me-3 text-decoration-none text-dark">Trang chủ</a> /
+            <a href="@Url.Action("ChiTietDanhMuc", "Home", new { id = Model.MADM})" class="me-3 ms-3 text-decoration-none text-dark">@Model.MADM</a> /
+            <span class="ms-3">@Model.TENSACH</span>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">
+                <img src="~/Content/img/product/@Model.ANHBIA" class="d-block w-100" style="object-fit: cover;" />
+            </div>
+            <div class="col-9">
+                <h5>@Model.TENSACH</h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="me-3" style="color: #dfe519;">
+                            <ion-icon name="star-outline"></ion-icon>
+                            <ion-icon name="star-outline"></ion-icon>
+                            <ion-icon name="star-outline"></ion-icon>
+                            <ion-icon name="star-outline"></ion-icon>
+                            <ion-icon name="star-outline"></ion-icon>
+                        </div>
+                        <div class="me-2">0 đánh giá</div> |
+                        <div class="ms-2">Đã bán: @Model.SOLUONGTON</div>
+                    </div>
+                    <div>
+                        <ion-icon name="heart-outline"></ion-icon>
+                    </div>
+                </div>
+                <div style="border: 1px solid; border-color: rgba(0,0,0,0.3) transparent rgba(0,0,0,0.3) transparent; padding: 15px 0;" class="mt-2">
+                    <span style="color: #d51c24; font-weight: bold; font-size: 20px;" class="me-2">@Html.FormatValue(giaban, "{0:0,0}đ")</span>
+                    <span style="text-decoration: line-through; color: #bebebe; font-weight: bold; font-size: 18px;" class="me-2">@Html.FormatValue(Model.GIABAN, "{0:0,0}đ")</span>
+                    <span>(Bạn đã tiết kiệm được @Html.FormatValue(tietkiem, "{0:0,0}đ"))</span>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="item">Mã Kim Đồng: <b>@Model.MASACH</b></div>
+                        <div class="item">ISBN: <b>@Model.ISBN</b></div>
+                        <div class="item">Tác giả: <strong>@Model:TACGIA</strong></div>
+                        <div class="item">Đối tượng: <strong>@Model.DOITUONG</strong></div>
+                        <div class="item">Khuôn khổ: @Model.KHUONKHO</div>
+                        <div class="item">Số trang: @Model.SOTRANG</div>
+                        <div class="item">Định dạng: @Model.DINHDANG</div>
+                        <div class="item">Trọng lượng: @Model.TRONGLUONG gram</div>
+                        <div class="item">Bộ sách: <strong>@Model.BOSACH</strong></div>
+                    </div>
+                    <div class="col-6">
+                        <h6>Số lượng</h6>
+                        <div>
+                            <button>-</button>
+                            <input type="number" min="1" value="1" />
+                            <button>+</button>
+                        </div>
+                        <a class="d-block btn btn-danger w-75 mt-3" href="@Url.Action("ThemSanPham", "GioHang", new { @iMaSach = Model.MASACH, @strURL = Request.Url.ToString()})">Thêm vào giỏ hàng</a>
+                        <a class="btn btn-danger d-block mt-3" style="width: 30%; color: #fff;" href="@Url.Action("ThemSanPham", "GioHang", new { @iMaSach = Model.MASACH, @strURL = Request.Url.ToString()})">Mua ngay</a>
+                        <div class="mt-2 d-flex justify-content-between" style="width: 30%">
+                            <button class="btn btn-info d-flex align-items-center" style="color: #fff; font-size: 10px;">
+                                <ion-icon name="thumbs-up-outline" class="me-2" style="font-size: 12px;"></ion-icon>
+                                <b class="me-1">Thích</b>
+                                0
+                            </button>
+                            <button class="btn btn-info" style="color: #fff; font-size: 10px; font-weight: bold;">
+                                Chia sẻ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-9">
+                <div class="box">
+                    <div class="d-flex" style="background-color: rgba(213, 28, 36, 0.5);">
+                        <h5>MÔ TẢ - ĐÁNH GIÁ</h5>
+                        <h5>BÌNH LUẬN</h5>
+                    </div>
+                    <p style="text-align: justify; padding: 20px 15px;">
+                        @Model.MOTA
+                    </p>
+                </div>
+                <div class="box mt-3">
+                    <h3 style="padding: 20px 30px 10px 30px;">Đánh giá sản phẩm</h3>
+                    <p class="ps-5 mb-1" style="color: #dfe519;">
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                    </p>
+                    <div class="row">
+                        <div class="col-8">
+                            <p style="padding-left: 20px;">Dựa trên 0 đánh giá</p>
+                            <div style="border-bottom: 1px solid rgba(0,0,0,0.2); padding-left: 20px;" class="d-flex mb-3">
+                                <div class="d-flex align-items-center me-5 mb-1">
+                                    <h6 class="m-0 me-3">Đánh giá</h6>
+                                    <span style="background-color: rgba(0,0,0,0.2); width: 20px; height: 20px; text-align: center;">0</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <h6 class="m-0 me-3">Câu hỏi và trả lời</h6>
+                                    <span style="background-color: rgba(0,0,0,0.2); width: 20px; height: 20px; text-align: center;">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex align-items-center">
+                            <button style="border-color: #d51c24; border-radius: 5px; padding: 5px 10px; background-color: #fff; color: #000;" class="d-flex align-items-center me-2">
+                                <ion-icon name="chatbubbles-outline" class="me-2"></ion-icon>
+                                <span>Viết đánh giá</span>
+                            </button>
+                            <button style="border-color: #d51c24; border-radius: 5px; padding: 5px 10px; background-color: #fff; color: #000;" class="d-flex align-items-center">
+                                <ion-icon name="help-circle-outline" class="me-2"></ion-icon>
+                                <span>Đặt câu hỏi</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box">
+                    <h5>SÁCH CÙNG TÁC GIẢ</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

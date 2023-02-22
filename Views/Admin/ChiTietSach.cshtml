@@ -1,0 +1,82 @@
+﻿@model KimDongBookStore.Models.SACH
+
+@{
+    ViewBag.Title = "ChiTietSach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="m-3 text-danger text-center">CHI TIẾT SÁCH</h2>
+<div>
+    <h5 class="m-3">@Model.TENSACH</h5>
+    <div class="row">
+        <div class="col-3">
+            <img src="~/Content/img/product/@Model.ANHBIA" class="d-block w-100"/>
+        </div>
+        <div class="col-9">
+            <p>
+                <span class="text-danger">IBSN:</span>
+                <i>@Model.ISBN</i>
+            </p>
+            <p>
+                <span class="text-danger">Mã sách:</span>
+                <i>@Model.MASACH</i>
+            </p>
+            <p>
+                <span class="text-danger">Giá bán:</span>
+                <i>@String.Format("{0:0,0}đ", Model.GIABAN)</i>
+            </p>
+            <p>
+                <span class="text-danger">Định dạng:</span>
+                <i>@Model.DINHDANG</i>
+            </p>
+            <p>
+                <span class="text-danger">Mô tả:</span>
+                <i class="text-truncate d-block w-100">@Model.MOTA</i>
+            </p>
+            <p>
+                <span class="text-danger">Ngày cập nhật:</span>
+                <i>@Model.NGAYCAPNHAT</i>
+            </p>
+            <p>
+                <span class="text-danger">Số lượng tồn:</span>
+                <i>@Model.SOLUONGTON</i>
+            </p>
+            <p>
+                <span class="text-danger">Mã chủ đề:</span>
+                <i>@Model.MACD</i>
+            </p>
+            <p>
+                <span class="text-danger">Mã danh mục:</span>
+                <i>@Model.MADM</i>
+            </p>
+            <p>
+                <span class="text-danger">Tác giả:</span>
+                <i>@Model.TACGIA</i>
+            </p>
+            <p>
+                <span class="text-danger">Giảm giá:</span>
+                <i>@Model.SALE</i>
+            </p>
+            <p>
+                <span class="text-danger">Đối tượng:</span>
+                <i>@Model.DOITUONG</i>
+            </p>
+            <p>
+                <span class="text-danger">Khuôn khổ:</span>
+                <i>@Model.KHUONKHO</i>
+            </p>
+            <p>
+                <span class="text-danger">Số trang:</span>
+                <i>@Model.SOTRANG</i>
+            </p>
+            <p>
+                <span class="text-danger">Trọng lượng:</span>
+                <i>@Model.TRONGLUONG</i>
+            </p>
+            <p>
+                <span class="text-danger">Bộ sách:</span>
+                <i>@Model.BOSACH</i>
+            </p>
+        </div>
+    </div>
+</div>
